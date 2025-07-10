@@ -40,7 +40,7 @@ Test that everything is installed correctly:
 
 ```bash
 # Test Claude Code CLI
-claude --version
+claude-code --version
 
 # Test Python imports
 python -c "import anyio; print('✓ anyio works')"

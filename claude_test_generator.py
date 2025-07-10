@@ -104,7 +104,8 @@ Create a test file named {test_file_name} with the generated test code.
         if not directory.exists():
             raise FileNotFoundError(f"Directory not found: {directory_path}")
 
-        output_path = Path(output_dir)
+        # Resolve output_dir relative to generator's cwd
+        output_path = self.cwd / output_dir
         output_path.mkdir(exist_ok=True)
 
         generated_files = []
@@ -122,9 +123,15 @@ Create a test file named {test_file_name} with the generated test code.
                 # Generate tests
                 test_code = await self.generate_tests(str(python_file))
 
+                # Mirror source directory structure in test output
+                relative_path = python_file.relative_to(directory)
+                relative_dir = relative_path.parent
+                test_output_dir = output_path / relative_dir
+                test_output_dir.mkdir(parents=True, exist_ok=True)
+
                 # Create output file name
                 test_file_name = f"test_{python_file.stem}.py"
-                test_file_path = output_path / test_file_name
+                test_file_path = test_output_dir / test_file_name
 
                 # Write test file
                 test_file_path.write_text(test_code)

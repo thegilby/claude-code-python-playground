@@ -24,7 +24,7 @@ class TestAdd:
     
     def test_add_floats(self):
         """Test adding floating point numbers."""
-        assert add(2.5, 3.7) == 6.2
+        assert add(2.5, 3.7) == pytest.approx(6.2)
         assert add(1.1, 2.2) == pytest.approx(3.3)
     
     def test_add_large_numbers(self):
@@ -40,7 +40,9 @@ class TestAdd:
         """Test add function with non-numeric types (duck typing)."""
         assert add("hello", "world") == "helloworld"
         assert add([1, 2], [3, 4]) == [1, 2, 3, 4]
-        assert add("test", 123) == "test123"
+        # String + int should raise TypeError
+        with pytest.raises(TypeError):
+            add("test", 123)
 
 
 class TestMultiply:
