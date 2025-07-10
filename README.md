@@ -20,10 +20,9 @@ A Python tool that uses the Claude Code SDK to automatically generate unit tests
 
 ## Installation
 
-1. Create a virtual environment:
+1. Install uv (if not already installed):
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 2. Install the Claude Code CLI:
@@ -33,7 +32,7 @@ npm install -g @anthropic-ai/claude-code
 
 3. Install Python dependencies:
 ```bash
-pip install -r requirements.txt
+uv sync
 ```
 
 4. Set up your Anthropic API key (if required):
@@ -88,10 +87,10 @@ anyio.run(demo_interactive)
 
 ```bash
 # Run interactive demo
-python claude_test_generator.py
+uv run python claude_test_generator.py
 
 # See example usage patterns
-python example_usage.py
+uv run python example_usage.py
 ```
 
 ## API Reference
